@@ -8,5 +8,5 @@ project ("worldCinemaInfo")
 
 # Включите подпроекты.
 add_subdirectory ("worldCinemaInfo")
-add_subdirectory("serverTest")
+add_subdirectory(Test)
 add_subdirectory(nlohmann.json)

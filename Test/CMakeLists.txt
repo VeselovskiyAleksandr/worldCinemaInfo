@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.8)
-project (serverTest)
+project (Test)
 
 include(FetchContent)
 
@@ -12,8 +12,8 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-add_executable (serverTest "serverTest.cpp")
+add_executable (Test "serverTest.cpp")
 
-target_link_libraries(serverTest PRIVATE gtest_main)
+target_link_libraries(Test PRIVATE gtest_main)
 include(GoogleTest)
-gtest_discover_tests(serverTest)
+gtest_discover_tests(Test)
