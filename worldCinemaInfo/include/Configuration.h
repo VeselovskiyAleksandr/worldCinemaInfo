@@ -8,7 +8,7 @@ using namespace std;
 
 #define MAX_SIZE 10000 //наибольшее общее количество слов в документах
 #define MAX_RESPONS 5 //наибольщее число ответов
-#define DOCUMENT_NUMBER 10 //количество документов
+#define DOCUMENT_NUMBER 10 //количество документов в базе
 
 struct Configuration
 {

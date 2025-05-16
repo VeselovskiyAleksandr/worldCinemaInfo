@@ -196,7 +196,7 @@ void ConverterJSON::multiMapFillFunction(vector<Entry>& vectEntr, vector<Entry>&
 void ConverterJSON::vectorEntryFillFunction(vector<string> vectWord[DOCUMENT_NUMBER], vector<Entry> getWC[DOCUMENT_NUMBER], int filmId)//////////////////
 {
 	size_t wordRepetitionCount = 0;
-	int entryCount = filmId;
+	size_t entryCount = filmId;
 	vector<string> checkRepetition;
 	Entry* entry = new Entry[DOCUMENT_NUMBER];
 	for (int itr = 0; itr < vectWord[filmId].size(); ++itr)
