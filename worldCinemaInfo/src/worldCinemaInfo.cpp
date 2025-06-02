@@ -21,12 +21,12 @@ int main()
 	converterJSON.openFile("answers.json");
 	converterJSON.getRequestsFunction(converterJSON.getRequests);
 	//		converterJSON.requerInputFunction(converterJSON.getRequests);
-	auto start_time = chrono::high_resolution_clock::now();
+	auto startTime = chrono::high_resolution_clock::now();
 	converterJSON.wordCountFunction(converterJSON.countWordsMap);
 	converterJSON.searchAnswerFunction(converterJSON.countWordsMap, converterJSON.getRequests);
 	converterJSON.getAnswerFunction();
-	auto end_time = chrono::high_resolution_clock::now();
-	chrono::duration<double> serial_duration = end_time - start_time;
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> serial_duration = endTime - startTime;
 	cout << "\nQuery execution time: " << serial_duration.count() << " seconds";
 	return 0;
 }

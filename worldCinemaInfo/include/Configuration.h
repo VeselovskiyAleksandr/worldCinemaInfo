@@ -12,9 +12,11 @@ using namespace std;
 
 struct Configuration
 {
-	string name;//Содержит название движка
-	string version;//версия движка
+	string name; //cодержит название движка
+	string version; //версия движка
 	map<int, string> movieTitles;
-	static const int maxRequest = 1000;//максимальное количество зпросов
+	static const int maxRequest = 1000; //максимальное количество зпросов
 	static const int maxStrRequestLength = 80; //наибольшее количество знаков в запросе
+	static const int numberProcessorCores = 4; //количество ядер процессора
+	static const int minWordLength = 3; //нечитаемые слова до указанной длины включительно
 };

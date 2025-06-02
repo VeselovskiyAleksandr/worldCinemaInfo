@@ -43,7 +43,7 @@ public: ConverterJSON() = default;
 	  //функция записи данных в карту
 	  void multiMapFillFunction(vector<Entry>& vectEntr, vector<Entry>& getWC, multimap<string, vector< Entry>>& countWM);
 
-	  //функция заполнения вектора Entry
+	  //функция заполнения вектора Entry. Содержит структуру Entry для каждого слова. 
 	  void vectorEntryFillFunction(vector<string> vectWord[DOCUMENT_NUMBER], vector<Entry> getWC[DOCUMENT_NUMBER], int n);
 
 	  //функции потоков

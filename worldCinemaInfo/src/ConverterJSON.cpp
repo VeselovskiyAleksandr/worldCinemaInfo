@@ -161,7 +161,7 @@ void ConverterJSON::wordSplitFunction(vector<string>& sentence, vector<string>& 
 			}
 			else
 			{
-				if (highlightedWord.length() > 3)
+				if (highlightedWord.length() > configuration.minWordLength)
 					setWords.push_back(highlightedWord);
 				highlightedWord = "";
 			}
@@ -193,7 +193,7 @@ void ConverterJSON::multiMapFillFunction(vector<Entry>& vectEntr, vector<Entry>&
 	getWC.clear();
 }
 
-void ConverterJSON::vectorEntryFillFunction(vector<string> vectWord[DOCUMENT_NUMBER], vector<Entry> getWC[DOCUMENT_NUMBER], int filmId)//////////////////
+void ConverterJSON::vectorEntryFillFunction(vector<string> vectWord[DOCUMENT_NUMBER], vector<Entry> getWC[DOCUMENT_NUMBER], int filmId)
 {
 	size_t wordRepetitionCount = 0;
 	size_t entryCount = filmId;
@@ -280,7 +280,7 @@ void ConverterJSON::wordCountFunction(multimap<string, vector< Entry>>& countWor
 		}
 		file[i].close();
 		vector<thread> threads;
-		for (int i = 0; i < DOCUMENT_NUMBER; ++i)
+		for (int i = 0; i < configuration.numberProcessorCores; ++i)
 		{
 			threads.emplace_back(&ConverterJSON::readingFromDatabase, this, ref(lines), ref(mtx), ref(cond), ref(fileComplete));
 		}
