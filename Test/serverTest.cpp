@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-//#include "ConverterJSON.h"
+#include "ConverterJSON.h"
 
 using namespace std;
 
@@ -8,9 +8,7 @@ TEST(sampleCTestCase, sampleTest)
 	EXPECT_EQ(1, 1);
 }
 
-int main()
-{
-	testing::InitGoogleTest();
+
 	//TEST(ConverterJSON, sampleMultimap)
 	//{
 	//	ConverterJSON converterJSON;
@@ -58,5 +56,8 @@ int main()
 		//	}
 		//	delete[] entry;
 		//}
+int main()
+{
+	testing::InitGoogleTest();
 		return RUN_ALL_TESTS();
-	}
+}

@@ -13,10 +13,9 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 add_executable (Test
                     "serverTest.cpp"
-        #            "../worldCinemaInfo/src/ConverterJSON.cpp"
+                    "../worldCinemaInfo/src/ConverterJSON.cpp"
                )
-#target_include_directories(Test PRIVATE "../worldCinemaInfo/include/")
-
+target_include_directories(Test PRIVATE "../worldCinemaInfo/include/")
 target_link_libraries(Test PRIVATE gtest_main)
 include(GoogleTest)
 gtest_discover_tests(Test)
