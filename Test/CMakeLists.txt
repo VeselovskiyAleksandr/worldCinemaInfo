@@ -16,6 +16,6 @@ add_executable (Test
                     "../worldCinemaInfo/src/ConverterJSON.cpp"
                )
 target_include_directories(Test PRIVATE "../worldCinemaInfo/include/")
-target_link_libraries(Test PRIVATE gtest_main)
+target_link_libraries(Test PRIVATE gtest_main nlohmann_json::nlohmann_json)
 include(GoogleTest)
 gtest_discover_tests(Test)
