@@ -151,7 +151,7 @@ void ConverterJSON::wordSplitFunction(vector<string>& sentence, vector<string>& 
 	{
 		for (int n = 0; n < sentence[ir].length(); ++n)
 		{
-			if (sentence[ir][n] != '-' && sentence[ir][n] != '\'' && sentence[ir][n] != '/' && sentence[ir][n] != ')' && sentence[ir][n] != '(' && sentence[ir][n] != ' ' && sentence[ir][n] != ';' && sentence[ir][n] != ':' && sentence[ir][n] != ',' && sentence[ir][n] != '.')
+			if (sentence[ir][n] != '?' && sentence[ir][n] != '!' && sentence[ir][n] != '"' && sentence[ir][n] != '-' && sentence[ir][n] != '\'' && sentence[ir][n] != '/' && sentence[ir][n] != ')' && sentence[ir][n] != '(' && sentence[ir][n] != ' ' && sentence[ir][n] != ';' && sentence[ir][n] != ':' && sentence[ir][n] != ',' && sentence[ir][n] != '.')
 			{
 				if (sentence[ir][n] >= 65 && sentence[ir][n] <= 90)
 				{
