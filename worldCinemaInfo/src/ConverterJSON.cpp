@@ -406,7 +406,7 @@ void ConverterJSON::getAnswerFunction()
 	ifstream ansfile("answers.json");
 	if (!ansfile)
 		cout << "\n " << "Requests file is not found.";
-	if (ansfile.peek() != EOF)////////////
+	if (ansfile.peek() != EOF)
 	{
 		nlohmann::json ansconfig;
 		int nReq = 0;

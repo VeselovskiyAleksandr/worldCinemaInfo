@@ -10,65 +10,65 @@
 using json = nlohmann::json;
 using namespace std;
 
-TEST(sampleCTestCase, sampleTest)
+TEST(sampleTestCase, sampleTest)
 {
 	EXPECT_EQ(1, 1);
 }
 
-	TEST(ConverterJSONTest, wordCountFunctionTest)
+TEST(ConverterJSONTest, someFunctionsTest)
+{
+	ConverterJSON converterJSON;
+	Configuration configuration;
+	map <int, vector< string>>getRequestsTest;
+	converterJSON.getRequestsFunction(getRequestsTest);
+	for (auto i : getRequestsTest)
 	{
-		ConverterJSON converterJSON;
-		Configuration configuration;
-		map <int, vector< string>>getRequestsTest;
-		converterJSON.getRequestsFunction(getRequestsTest);
-		for (auto i : getRequestsTest)
-		{
-			if (i.first == 2)
-				for (auto j : i.second)
-				{
-					EXPECT_TRUE(j == "tank this other");
-				}
-		}
-		converterJSON.openFile("config.json");
-		EXPECT_TRUE("config.json");
-		converterJSON.start();
-		nlohmann::json config;
-		ifstream cnfile("config.json");
-		if (!cnfile)
-		{
-			cerr << "\n" << "The cnfile is not found." << "\n";
-		}
-		if (cnfile.peek() != EOF)
-		{
-			cnfile >> config;
-			cnfile.close();
-			for (const auto& item : config["files"].items())
+		if (i.first == 2)
+			for (auto j : i.second)
 			{
-				int id = stoi(item.key());
-				pair<int, string> oPair(id, item.value());
-				configuration.movieTitles.insert(oPair);
+				EXPECT_TRUE(j == "tank this other");
 			}
-		}
-		string strWordTest;
-		string moviePath;
-		ifstream resfile;
-		for (const auto& it : configuration.movieTitles)
+	}
+	converterJSON.openFile("config.json");
+	EXPECT_TRUE("config.json");
+	converterJSON.start();
+	nlohmann::json config;
+	ifstream cnfile("config.json");
+	if (!cnfile)
+	{
+		cerr << "\n" << "The cnfile is not found." << "\n";
+	}
+	if (cnfile.peek() != EOF)
+	{
+		cnfile >> config;
+		cnfile.close();
+		for (const auto& item : config["files"].items())
 		{
-			if (it.first == 1)
-				moviePath = it.second;
-			resfile.open(moviePath);
+			int id = stoi(item.key());
+			pair<int, string> oPair(id, item.value());
+			configuration.movieTitles.insert(oPair);
 		}
-		if (!resfile.is_open())
-		{
-			cerr << "\n" << "The file " << configuration.movieTitles[0] << " is not found." << "\n";
-		}
-		vector<string> wordsFromFilesVectorTest , vectorWordTest[DOCUMENT_NUMBER], wordsFromFilesTest[DOCUMENT_NUMBER];
-		while (getline(resfile, strWordTest))
-		{
-			wordsFromFilesVectorTest.push_back(strWordTest);
-			strWordTest = "";
-		}
-		moviePath = "";
+	}
+	string strWordTest;
+	string moviePath;
+	ifstream resfile;
+	for (const auto& it : configuration.movieTitles)
+	{
+		if (it.first == 1)
+			moviePath = it.second;
+		resfile.open(moviePath);
+	}
+	if (!resfile.is_open())
+	{
+		cerr << "\n" << "The file " << configuration.movieTitles[0] << " is not found." << "\n";
+	}
+	vector<string> wordsFromFilesVectorTest, vectorWordTest[DOCUMENT_NUMBER], wordsFromFilesTest[DOCUMENT_NUMBER];
+	while (getline(resfile, strWordTest))
+	{
+		wordsFromFilesVectorTest.push_back(strWordTest);
+		strWordTest = "";
+	}
+	     moviePath = "";
 		 for (int i = 0; i < wordsFromFilesVectorTest.size(); ++i)
 		 {
 			 if (i == 3)
@@ -77,7 +77,6 @@ TEST(sampleCTestCase, sampleTest)
 				 EXPECT_EQ(wordsFromFilesVectorTest[i], "Yuriy Yakovlev: Ivan the Terrible/Ivan Vasilyevich Bunsha, ");
 		 }
 		 wordsFromFilesTest[0]=wordsFromFilesVectorTest;
-
 		  converterJSON.wordSplitFunction(wordsFromFilesTest[0], vectorWordTest[0]);
 		  for (int j = 0; j < vectorWordTest[0].size(); ++j)
 		  {
@@ -102,9 +101,7 @@ TEST(sampleCTestCase, sampleTest)
 							   EXPECT_EQ(j.freqWordsCount, 2);
 							}
 					}
-		converterJSON.getRequestsFunction(getRequestsTest);
-		multimap<string, vector< Entry>> countWordsMapTest;
-		vector<Entry> vectorEntryTest[DOCUMENT_NUMBER];
+	    	multimap<string, vector< Entry>> countWordsMapTest;
 				for (multimap<string, vector< Entry>>::const_iterator pair = countWordsMapTest.begin(); pair != countWordsMapTest.end(); ++pair)
 				{
 					if (pair->first == "zinaida")
@@ -130,6 +127,7 @@ TEST(sampleCTestCase, sampleTest)
 					   	}
 					}
 				}
+		        vector<Entry> vectorEntryTest[DOCUMENT_NUMBER];
 				converterJSON.multiMapFillFunction(vectorEntryTest[0], getWordCountTest[0], countWordsMapTest);
 					for (const auto q : countWordsMapTest)
 					{
@@ -170,15 +168,17 @@ TEST(sampleCTestCase, sampleTest)
 							}
 						}
 					}
-				converterJSON.searchAnswerFunction(countWordsMapTest, getRequestsTest);
-				converterJSON.getAnswerFunction();
 				getRequestsTest.clear();
 				wordsFromFilesVectorTest.clear();
-				vectorWordTest[DOCUMENT_NUMBER].clear(); 
-				wordsFromFilesTest[DOCUMENT_NUMBER].clear();
-				getWordCountTest[DOCUMENT_NUMBER].clear();
 				countWordsMapTest.clear();
-				vectorEntryTest[DOCUMENT_NUMBER].clear();
+				for (int i = 0; i < DOCUMENT_NUMBER; ++i)
+				{
+				vectorWordTest[i].clear(); 
+				wordsFromFilesTest[i].clear();
+				getWordCountTest[i].clear();
+    			vectorEntryTest[i].clear();
+				}
+				config.clear();
 		}
 int main()
 {
