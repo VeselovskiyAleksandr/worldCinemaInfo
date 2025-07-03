@@ -9,28 +9,31 @@ void ConverterJSON::start()
 	{
 		throw exception();
 	}
-	cnfile >> config;
-	cnfile.close();
-	config["config"]["maxResponses"] = { MAX_RESPONS };
-	cout << config["config"] << "\n";
-	for (const auto& item : config["config"].items())
+	if (cnfile.peek() != EOF)////////////
 	{
-		if (item.key() == "name")
+		cnfile >> config;
+		cnfile.close();
+		config["config"]["maxResponses"] = { MAX_RESPONS };
+		cout << config["config"] << "\n";
+		for (const auto& item : config["config"].items())
 		{
-			configuration.name = item.value();
+			if (item.key() == "name")
+			{
+				configuration.name = item.value();
+			}
+			else if (item.key() == "version")
+			{
+				configuration.version = item.value();
+			}
 		}
-		else if (item.key() == "version")
+		int count = 0;//????????????????????????????
+		for (const auto& item : config["files"].items())
 		{
-			configuration.version = item.value();
+			int id = stoi(item.key());
+			pair<int, string> oPair(id, item.value());
+			configuration.movieTitles.insert(oPair);
+			count++;//????????????????????????????????????
 		}
-	}
-	int count = 0;
-	for (const auto& item : config["files"].items())
-	{
-		int id = stoi(item.key());
-		pair<int, string> oPair(id, item.value());
-		configuration.movieTitles.insert(oPair);
-		count++;
 	}
 };
 
@@ -403,46 +406,49 @@ void ConverterJSON::getAnswerFunction()
 	ifstream ansfile("answers.json");
 	if (!ansfile)
 		cout << "\n " << "Requests file is not found.";
-	nlohmann::json ansconfig;
-	int nReq = 0;
-	string val = "", key = "";
-	vector<string> vecAnswer;
-	if (ansfile.peek() != EOF)
+	if (ansfile.peek() != EOF)////////////
 	{
-		ansfile.seekg(0);
-		ansfile >> ansconfig;
-		ansfile.close();
-		for (const auto& item : ansconfig.items())
+		nlohmann::json ansconfig;
+		int nReq = 0;
+		string val = "", key = "";
+		vector<string> vecAnswer;
+		if (ansfile.peek() != EOF)
 		{
-			for (const auto& ir : item.value().items())
+			ansfile.seekg(0);
+			ansfile >> ansconfig;
+			ansfile.close();
+			for (const auto& item : ansconfig.items())
 			{
-				for (const auto& iq : ir.value().items())
+				for (const auto& ir : item.value().items())
 				{
-					for (const auto& it : iq.value().items())
+					for (const auto& iq : ir.value().items())
 					{
-						for (const auto& im : it.value().items())
+						for (const auto& it : iq.value().items())
 						{
-							if (nReq % 2 > 0)
+							for (const auto& im : it.value().items())
 							{
-								key = to_string(im.value());
-								vecAnswer.push_back(key);
-								key = "";
+								if (nReq % 2 > 0)
+								{
+									key = to_string(im.value());
+									vecAnswer.push_back(key);
+									key = "";
+								}
+								if (nReq % 2 == 0)
+								{
+									val = to_string(im.value());
+									vecAnswer.push_back(val);
+									val = "";
+								}
+								nReq++;
 							}
-							if (nReq % 2 == 0)
-							{
-								val = to_string(im.value());
-								vecAnswer.push_back(val);
-								val = "";
-							}
-							nReq++;
 						}
 					}
 				}
 			}
 		}
-	}
-	for (int i = 0; i < vecAnswer.size(); ++i)
-	{
-		cout << "\n " << vecAnswer[i];
+		for (int i = 0; i < vecAnswer.size(); ++i)
+		{
+			cout << "\n " << vecAnswer[i];
+		}
 	}
 }
