@@ -1,0 +1,15 @@
+NameMovie: The Adventures of Sherlock Holmes and Dr. Watson, 
+ Country: Russia, 
+DateCreation: First Air Date: 1980 , 
+FilmDirector: Igor Maslennikov,
+Scriptwriter: Vladimir Valutskiy, Igor Maslennikov, Yuliy Dunskiy, Valeriy Frid, 
+FilmStudio: Lenfilm, 
+Annotation: The Adventures of Sherlock Holmes and Dr. Watson is a series of five films produced by Lenfilm for the Soviet Central Television, split into eleven episodes, starring Vasily Livanov as Sherlock Holmes and Vitaliy Solomin as Dr. Watson. They were directed by Igor Maslennikov and filmed in Russia (the then Soviet Union) between 1979 and 1986, and the series was one of the most successful in the history of Russian television, 
+Vasiliy Livanov: Sherlock Holmes, 
+Vitaliy Solomin: Dr. Watson, 
+Nikolay Karachentsov : 
+Georgiy Martirosyan: King of Bohemia,
+Igor Dmitriev: Inspector Gregson, 
+Rina Zelyonaya: Mrs. Hudson, 
+Nikita Mikhalkov: Sir Henry Baskerville, 
+Evgeniy Steblov: Dr. Mortimer.

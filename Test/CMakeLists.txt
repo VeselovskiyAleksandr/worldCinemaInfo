@@ -12,7 +12,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_executable (Test
-                    "serverTest.cpp"
+                    "../worldCinemaInfo/include/serverTest.cpp"
                     "../worldCinemaInfo/src/ConverterJSON.cpp"
                )
 target_include_directories(Test PRIVATE "../worldCinemaInfo/include/")

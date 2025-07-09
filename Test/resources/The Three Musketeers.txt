@@ -1,0 +1,20 @@
+NameMovie: The Three Musketeers, 
+Country: France, SU, USA, Spain,
+DateCreation: 1973, 
+FilmDirector: Richard Lester,
+Scriptwriter: George MacDonald Fraser,
+FilmStudio: Warner Bros. Pictures,
+Annotation: Set between 1625 and 1628, it recounts the adventures of a young man named d Artagnan, a character based on Charles de Batz-Castelmore d Artagnan, after he leaves home to travel to Paris, hoping to join the Musketeers of the Guard. Although d Artagnan is not able to join this elite corps immediately, he is befriended by three of the most formidable musketeers of the age - Athos, Porthos and Aramis, the three musketeers or the three inseparables - and becomes involved in affairs of state and at court, 
+Michael York: d'Artagnan;
+Oliver Reed: Athos;
+Frank Finlay: Porthos; 
+Richard Chamberlain: Aramis; 
+Raquel Welch: Constance Bonacieux;
+Jean-Pierre Cassel: King Louis XIII of France;
+Geraldine Chaplin: Anne of Austria;
+Faye Dunaway: Milady de Winter;
+Christopher Lee: the Count De Rochefort;
+Simon Ward: the Duke of Buckingham;
+Spike Milligan: M. Bonacieux;
+Roy Kinnear: Planchet;
+Georges Wilson: Captain de Treville;

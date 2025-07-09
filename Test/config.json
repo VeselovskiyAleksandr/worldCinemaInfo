@@ -1,0 +1,19 @@
+{
+  "config": {
+    "name": "worldCinemaInfo",
+    "version": "0.1",
+    "maxResponses": "5"
+  },
+  "files": {
+    "1": "resources/Ivan Vasilievich Changes Profession.txt",
+    "2": "resources/Seventeen Moments of Spring.txt",
+    "3": "resources/The Place of meeting can not be changed.txt",
+    "4": "resources/Ruslan and Ludmila.txt",
+    "5": "resources/Salyut 7.txt",
+    "6": "resources/The Irony of Fate, or Enjoy Your Bath!.txt",
+    "7": "resources/Only old men are going into battle.txt",
+    "8": "resources/The Adventures of Sherlock Holmes and Dr. Watson.txt",
+    "9": "resources/Four Tank-Men and a Dog.txt",
+    "10": "resources/The Three Musketeers.txt"
+  }
+}
