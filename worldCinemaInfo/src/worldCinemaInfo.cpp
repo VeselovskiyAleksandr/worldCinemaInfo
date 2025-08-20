@@ -1,30 +1,44 @@
 ﻿// worldCinemaInfo.cpp: определяет точку входа для приложения.
 //
-
 #include "ConverterJSON.h"
-
-using namespace std;
+#include "EngineStart.h"
+#include "Configuration.h"
+#include "RequestsJSON.h"
+#include "AnswersJSON.h"
 
 int main()
 {
 	ConverterJSON converterJSON;
+	EngineStart engineStart;
+	Configuration configuration;
+	RequestsJSON requestsJSON;
+	AnswersJSON answersJSON;
 	try
 	{
-		converterJSON.start();
+		engineStart.start(configuration);
 	}
 	catch (const exception& x)
 	{
-		cerr << "The file is not found.";
+		cerr << "Configuration file is not found. Fix the problem.";
 		return 1;
 	}
-	converterJSON.openFile("requests.json");
-	converterJSON.openFile("answers.json");
-	converterJSON.getRequestsFunction(converterJSON.getRequests);
-	//		converterJSON.requerInputFunction(converterJSON.getRequests);
+	if (engineStart.isJsonValid("config.json"))
+	{
+		cout << "JSON is correct!";
+	}
+	else
+	{
+		cout << "JSON contains errors!";
+	}
+	engineStart.openFile("requests.json");
+	engineStart.openFile("answers.json");
+	requestsJSON.getRequestsFunction(requestsJSON.getRequests);
+	//requestsJSON.requerInputFunction(requestsJSON.getRequests);
 	auto startTime = chrono::high_resolution_clock::now();
-	converterJSON.wordCountFunction(converterJSON.countWordsMap);
-	converterJSON.searchAnswerFunction(converterJSON.countWordsMap, converterJSON.getRequests);
-	converterJSON.getAnswerFunction();
+	converterJSON.readFromFilesFunction(converterJSON.wordsFromFilesVector, configuration);
+	converterJSON.getWordDataFunction(converterJSON.countWordsMap, configuration, converterJSON.wordsFromFilesVector);
+	answersJSON.searchAnswerFunction(converterJSON.countWordsMap, requestsJSON.getRequests);
+	answersJSON.getAnswerFunction();
 	auto endTime = chrono::high_resolution_clock::now();
 	chrono::duration<double> serial_duration = endTime - startTime;
 	cout << "\nQuery execution time: " << serial_duration.count() << " seconds";

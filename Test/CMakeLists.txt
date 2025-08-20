@@ -14,6 +14,9 @@ enable_testing()
 add_executable (Test
                     "../worldCinemaInfo/include/serverTest.cpp"
                     "../worldCinemaInfo/src/ConverterJSON.cpp"
+                    "../worldCinemaInfo/src/EngineStart.cpp"
+                    "../worldCinemaInfo/src/RequestsJSON.cpp"
+                    "../worldCinemaInfo/src/AnswersJSON.cpp"
                )
 target_include_directories(Test PRIVATE "../worldCinemaInfo/include/")
 target_link_libraries(Test PRIVATE gtest_main nlohmann_json::nlohmann_json)

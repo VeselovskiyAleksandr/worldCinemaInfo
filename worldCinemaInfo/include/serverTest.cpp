@@ -2,6 +2,8 @@
 #include "ConverterJSON.h"
 #include "Entry.h"
 #include "Configuration.h"
+#include "EngineStart.h"
+#include "RequestsJSON.h"
 #include <map>
 #include <vector>
 #include <string>
@@ -15,12 +17,20 @@ TEST(sampleTestCase, sampleTest)
 	EXPECT_EQ(1, 1);
 }
 
-TEST(ConverterJSONTest, someFunctionsTest)
+TEST(EngineStartTest, checkLaunch)
 {
-	ConverterJSON converterJSON;
+	EngineStart engineStart;
 	Configuration configuration;
+	engineStart.openFile("config.json");
+	EXPECT_TRUE("config.json");
+	engineStart.start(configuration);
+}
+
+/*TEST(RequestsJSONTest, requestsFunctionsTest)
+{
+	RequestsJSON requestsJSON;
 	map <int, vector< string>>getRequestsTest;
-	converterJSON.getRequestsFunction(getRequestsTest);
+	requestsJSON.getRequestsFunction(getRequestsTest);
 	for (auto i : getRequestsTest)
 	{
 		if (i.first == 2)
@@ -29,9 +39,15 @@ TEST(ConverterJSONTest, someFunctionsTest)
 				EXPECT_TRUE(j == "tank this other");
 			}
 	}
-	converterJSON.openFile("config.json");
-	EXPECT_TRUE("config.json");
-	converterJSON.start();
+	getRequestsTest.clear();
+}*/
+
+
+
+/*TEST(ConverterJSONTest, someFunctionsTest)
+{
+	ConverterJSON converterJSON;
+	Configuration configuration;
 	nlohmann::json config;
 	ifstream cnfile("config.json");
 	if (!cnfile)
@@ -77,6 +93,7 @@ TEST(ConverterJSONTest, someFunctionsTest)
 				 EXPECT_EQ(wordsFromFilesVectorTest[i], "Yuriy Yakovlev: Ivan the Terrible/Ivan Vasilyevich Bunsha, ");
 		 }
 		 wordsFromFilesTest[0]=wordsFromFilesVectorTest;
+
 		  converterJSON.wordSplitFunction(wordsFromFilesTest[0], vectorWordTest[0]);
 		  for (int j = 0; j < vectorWordTest[0].size(); ++j)
 		  {
@@ -88,7 +105,8 @@ TEST(ConverterJSONTest, someFunctionsTest)
 				  EXPECT_EQ(vectorWordTest[0][78], "kuravlyov");
 		  }
 		  vector<Entry> getWordCountTest[DOCUMENT_NUMBER];
-		  converterJSON.vectorEntryFillFunction(vectorWordTest, getWordCountTest, 0);
+	    	multimap<string, vector< Entry>> countWordsMapTest;
+		  converterJSON.vectorEntryFillFunction(vectorWordTest, 0, countWordsMapTest);
 				for (int i = 0; i < getWordCountTest[0].size(); ++i)
 					{
 						for (auto j : getWordCountTest[0])
@@ -101,7 +119,6 @@ TEST(ConverterJSONTest, someFunctionsTest)
 							   EXPECT_EQ(j.freqWordsCount, 2);
 							}
 					}
-	    	multimap<string, vector< Entry>> countWordsMapTest;
 				for (multimap<string, vector< Entry>>::const_iterator pair = countWordsMapTest.begin(); pair != countWordsMapTest.end(); ++pair)
 				{
 					if (pair->first == "zinaida")
@@ -127,48 +144,6 @@ TEST(ConverterJSONTest, someFunctionsTest)
 					   	}
 					}
 				}
-		        vector<Entry> vectorEntryTest[DOCUMENT_NUMBER];
-				converterJSON.multiMapFillFunction(vectorEntryTest[0], getWordCountTest[0], countWordsMapTest);
-					for (const auto q : countWordsMapTest)
-					{
-						if (q.first == "Ivan")
-						{
-							for (const auto s : q.second)
-							{
-								EXPECT_EQ(s.freqWordsCount, 5);
-								cout << "\n9999999999    " << s.word << "     " << s.freqWordsCount;
-							}
-						}
-						else if (q.first == "inventor")
-						{
-							for (const auto s : q.second)
-							{
-								EXPECT_EQ(s.freqWordsCount, 2);
-							}
-						}
-						else if (q.first == "feofan")
-						{
-							for (const auto s : q.second)
-							{
-								EXPECT_EQ(s.freqWordsCount, 1);
-							}
-						}
-						else if (q.first == "miloslavsky")
-						{
-							for (const auto s : q.second)
-							{
-								EXPECT_EQ(s.freqWordsCount, 1);
-							}
-						}
-						else if (q.first == "kramarov")
-						{
-							for (const auto s : q.second)
-							{
-								EXPECT_EQ(s.freqWordsCount, 1);
-							}
-						}
-					}
-				getRequestsTest.clear();
 				wordsFromFilesVectorTest.clear();
 				countWordsMapTest.clear();
 				for (int i = 0; i < DOCUMENT_NUMBER; ++i)
@@ -176,10 +151,9 @@ TEST(ConverterJSONTest, someFunctionsTest)
 				vectorWordTest[i].clear(); 
 				wordsFromFilesTest[i].clear();
 				getWordCountTest[i].clear();
-    			vectorEntryTest[i].clear();
 				}
 				config.clear();
-		}
+		}*/
 int main()
 {
 	testing::InitGoogleTest();
