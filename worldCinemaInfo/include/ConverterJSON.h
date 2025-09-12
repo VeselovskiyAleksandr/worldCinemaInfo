@@ -18,6 +18,13 @@ public:
 	  mutex film_mutex;
 	  condition_variable cond;
 
+	  //функция обхода вектора
+	  void vectorTraversalFunction(vector<string>& sentence, vector<string>& setWords, string word);
+
+	  //функция проверки условий для записи слова в поиск
+	  template<typename Iterator>
+	  void wordEntryConditionFunction(string& word, vector<string>& sentence, vector<string>& setWords, Iterator& ir, Iterator& n);
+
 	  //функция выделения слов
 	  void wordSplitFunction(vector<string>& sentence, vector<string>& setWords);
 

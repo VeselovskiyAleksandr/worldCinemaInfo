@@ -26,10 +26,10 @@ TEST(EngineStartTest, checkLaunch)
 	engineStart.start(configuration);
 }
 
-/*TEST(RequestsJSONTest, requestsFunctionsTest)
+TEST(RequestsJSONTest, requestsFunctionsTest)
 {
 	RequestsJSON requestsJSON;
-	map <int, vector< string>>getRequestsTest;
+	map <size_t, vector< string>>getRequestsTest;
 	requestsJSON.getRequestsFunction(getRequestsTest);
 	for (auto i : getRequestsTest)
 	{
@@ -40,11 +40,11 @@ TEST(EngineStartTest, checkLaunch)
 			}
 	}
 	getRequestsTest.clear();
-}*/
+}
 
 
 
-/*TEST(ConverterJSONTest, someFunctionsTest)
+TEST(ConverterJSONTest, someFunctionsTest)
 {
 	ConverterJSON converterJSON;
 	Configuration configuration;
@@ -153,7 +153,7 @@ TEST(EngineStartTest, checkLaunch)
 				getWordCountTest[i].clear();
 				}
 				config.clear();
-		}*/
+		}
 int main()
 {
 	testing::InitGoogleTest();

@@ -1,33 +1,45 @@
 #include "ConverterJSON.h"
 
-void ConverterJSON::wordSplitFunction(vector<string>& sentence, vector<string>& setWords)
+void ConverterJSON::vectorTraversalFunction(vector<string>& sentence, vector<string>& setWords, string word)
 {
-	string highlightedWord = "";
 	for (int ir = 0; ir < sentence.size(); ++ir)
 	{
 		for (int n = 0; n < sentence[ir].length(); ++n)
 		{
-			if (sentence[ir][n] != '?' && sentence[ir][n] != '!' && sentence[ir][n] != '"' && sentence[ir][n] != '-' && sentence[ir][n] != '\'' && sentence[ir][n] != '/' && sentence[ir][n] != ')' && sentence[ir][n] != '(' && sentence[ir][n] != ' ' && sentence[ir][n] != ';' && sentence[ir][n] != ':' && sentence[ir][n] != ',' && sentence[ir][n] != '.')
-			{
-				if (sentence[ir][n] >= 65 && sentence[ir][n] <= 90)
-				{
-					sentence[ir][n] += 32;
-				}
-				highlightedWord += sentence[ir][n];
-			}
-			else
-			{
-				if (highlightedWord.length() > configuration.minWordLength)
-					setWords.push_back(highlightedWord);
-				highlightedWord = "";
-			}
-			if (ir == sentence[ir].length() - 1)
-			{
-				setWords.push_back(highlightedWord);
-				highlightedWord = "";
-			}
+			wordEntryConditionFunction(word, sentence, setWords, ir, n);
 		}
 	}
+}
+
+template<typename Iterator>
+void ConverterJSON::wordEntryConditionFunction(string& word, vector<string>& sentence, vector<string>& setWords, Iterator& ir, Iterator& n)
+{
+	if (sentence[ir][n] != '?' && sentence[ir][n] != '!' && sentence[ir][n] != '"' && sentence[ir][n] != '-' && sentence[ir][n] != '\'' && sentence[ir][n] != '/' && sentence[ir][n] != ')' && sentence[ir][n] != '(' && sentence[ir][n] != ' ' && sentence[ir][n] != ';' && sentence[ir][n] != ':' && sentence[ir][n] != ',' && sentence[ir][n] != '.')
+	{
+		if (sentence[ir][n] >= 65 && sentence[ir][n] <= 90)
+		{
+			sentence[ir][n] += 32;
+		}
+		word += sentence[ir][n];
+	}
+	else
+	{
+		if (word.length() > configuration.minWordLength)
+			setWords.push_back(word);
+
+		word = "";
+	}
+	if (ir == sentence[ir].length() - 1)
+	{
+		setWords.push_back(word);
+		word = "";
+	}
+}
+
+void ConverterJSON::wordSplitFunction(vector<string>& sentence, vector<string>& setWords)
+{
+	string highlightedWord = "";
+	vectorTraversalFunction(sentence, setWords, highlightedWord);
 }
 
 void ConverterJSON::vectorEntryFillFunction(vector<string> vectWord[DOCUMENT_NUMBER], int filmId, multimap<string, vector< Entry>>& countWordM)

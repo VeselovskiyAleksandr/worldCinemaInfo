@@ -1,7 +1,7 @@
 #pragma once
 #include "AnswersJSON.h"
 
-void AnswersJSON::searchAnswerFunction(multimap<string, vector< Entry>>& countWordsMap, map <int, vector< string>> getRequest)
+void AnswersJSON::searchAnswerFunction(multimap<string, vector< Entry>>& countWordsMap, map <size_t, vector< string>> getRequest)
 {
 	vector<string> requestWord, reqtWord;
 	int reqNumber = 1;
@@ -54,10 +54,10 @@ void AnswersJSON::searchAnswerFunction(multimap<string, vector< Entry>>& countWo
 				countResponses++;
 			}
 			if (absoluteRelevance > 0)
-				dataConfig[i] = { { "word ", requestWord[i]},{"result", { absoluteRelevance > 0} }, {"Absolute relevance", absoluteRelevance},{"Relative relevance",0.}, { docConfig} };
+				dataConfig[i] = { { "word ", requestWord[i]},{"result", { absoluteRelevance > 0} }, {"Absolute relevance", absoluteRelevance},{"Relative relevance",0.}, { docConfig}};
 			if (absoluteRelevance == 0)
 			{
-				dataConfig[i] = { { "word ", requestWord[i]}, {"result", { absoluteRelevance != 0}}, {"Absolute relevance", absoluteRelevance},{"Relative relevance",0.}, { docConfig == 0} };
+				dataConfig[i] = { { "word ", requestWord[i]}, {"result", { absoluteRelevance != 0}}, {"Absolute relevance", absoluteRelevance},{"Relative relevance",0.}, { docConfig == 0}};
 			}
 			docConfig.clear();
 			absoluteRelevance = 0;

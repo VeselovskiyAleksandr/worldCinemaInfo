@@ -22,18 +22,28 @@ int main()
 		cerr << "Configuration file is not found. Fix the problem.";
 		return 1;
 	}
-	if (engineStart.isJsonValid("config.json"))
+//	if (engineStart.isJsonValid("config.json"))
+	if (engineStart.isJsonValid("requests.json"))
 	{
-		cout << "JSON is correct!";
+		cout << "\nrequests.json is correct!";
 	}
 	else
 	{
-		cout << "JSON contains errors!";
+		cout << "\nrequests.json contains errors!";
+	}
+	if (engineStart.isJsonValid("answers.json"))
+	{
+		cout << "\nanswers.json is correct!";
+	}
+	else
+	{
+		cout << "\nanswers.json contains errors!";
 	}
 	engineStart.openFile("requests.json");
 	engineStart.openFile("answers.json");
 	requestsJSON.getRequestsFunction(requestsJSON.getRequests);
 	//requestsJSON.requerInputFunction(requestsJSON.getRequests);
+	requestsJSON.writeMapToFileFunction(requestsJSON.getRequests);
 	auto startTime = chrono::high_resolution_clock::now();
 	converterJSON.readFromFilesFunction(converterJSON.wordsFromFilesVector, configuration);
 	converterJSON.getWordDataFunction(converterJSON.countWordsMap, configuration, converterJSON.wordsFromFilesVector);

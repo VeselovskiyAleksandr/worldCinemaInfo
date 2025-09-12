@@ -6,34 +6,37 @@ class RequestsJSON
 public: RequestsJSON() = default;
 public:
      Configuration configuration;
-	 map <int, vector< string>> getRequests;
+	 map <size_t, vector< string>> getRequests;
 
 	 template<typename JsonIterator>
 	 void conditionCheckingFunction(
-		 map<int, vector<string>>& getRequests,
+		 map<size_t, vector<string>>& getRequests,
 		 vector<string>& vecRequest,
-		 int& nReq,
-		 const typename JsonIterator& element);
+		 size_t& nReq,
+		 const JsonIterator& element);
 
 	 template<typename JsonType>
-	 void vectorTraversalFunction(
-		 map<int, vector<string>>& getRequests,
+	 void JsonTraversalFunction(
+		 map<size_t, vector<string>>& getRequests,
 		 vector<string>& vecRequest,
-		 int& nReq, const JsonType& data);
+		 size_t& nReq,
+		 const JsonType& data);
 
-	 template<typename Iterator>
-	 void selectingWordsMinimumLength(string requerie, const typename Iterator& iter, Configuration& configuration);
+	 template<typename Iterator, typename vectorJSON, typename JsonType>
+	 void selectingWordsMinimumLength(const typename Iterator& iter, Configuration& configuration,
+		 vectorJSON& strConfig, size_t requestNumber, JsonType& data);
 	 
-	 template<typename JsonIterator, typename VectorJSON>
-	 void vectorTraversalFunction2(
-		 map<int, vector<string>>& getRequests,
-		 vector<string>& vecRequest,string requerie, 
-		 size_t& nReq, const typename JsonIterator& element,
-		  VectorJSON& strConfig);
+	 template<typename vectorJSON>
+	 void mapTraversalFunction(
+		 map<size_t, vector<string>>& getRequests,
+		  vectorJSON& strConfig);
 
 	   //функция получения запросов
-	 void getRequestsFunction(map<int, vector<string>>& getRequests);
+	 void getRequestsFunction(map<size_t, vector<string>>& getRequests);
 
 	  //функция ввода запроса
-	  void requerInputFunction(map<int, vector<string>>& getRequests);
+	  void requerInputFunction(map<size_t, vector<string>>& getRequests);
+
+	  //функция записи запросов в файл
+	  void writeMapToFileFunction(map<size_t, vector<string>>& getRequests);
 };

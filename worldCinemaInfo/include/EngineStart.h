@@ -17,7 +17,7 @@ public: EngineStart() = default;
 	  Configuration configuration;
 
 	  //функция проверки на корректность структуры JSON-файла
-	  bool isJsonValid(const std::string& filepath);
+	  bool isJsonValid(const string& filepath);
 
 	  //функция начала работы движка
 	  void start(Configuration& configuration);

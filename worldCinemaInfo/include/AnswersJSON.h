@@ -12,7 +12,7 @@ public: AnswersJSON() = default;
 	  Entry entry;
 
 	  //функция поиска ответов. Здесь ведётся поиск в контейнере.
-	  void searchAnswerFunction(multimap<string, vector< Entry>>& countWordsMap, map <int, vector< string>> getRequest);
+	  void searchAnswerFunction(multimap<string, vector< Entry>>& countWordsMap, map <size_t, vector< string>> getRequest);
 
 	  //функция вывода результатов поиска
 	  void getAnswerFunction();
