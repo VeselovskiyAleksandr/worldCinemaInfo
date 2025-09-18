@@ -19,17 +19,17 @@ int main()
 	}
 	catch (const exception& x)
 	{
-		cerr << "Configuration file is not found. Fix the problem.";
+		cerr << "\nConfiguration file is not found. Fix the problem.";
 		return 1;
 	}
 //	if (engineStart.isJsonValid("config.json"))
 	if (engineStart.isJsonValid("requests.json"))
 	{
-		cout << "\nrequests.json is correct!";
+		cout << "\nrequests.json is correct!\n";
 	}
 	else
 	{
-		cout << "\nrequests.json contains errors!";
+		cout << "\nrequests.json contains errors!\n";
 	}
 	if (engineStart.isJsonValid("answers.json"))
 	{
@@ -37,7 +37,7 @@ int main()
 	}
 	else
 	{
-		cout << "\nanswers.json contains errors!";
+		cout << "\nanswers.json contains errors!\n";
 	}
 	engineStart.openFile("requests.json");
 	engineStart.openFile("answers.json");

@@ -35,9 +35,9 @@ void RequestsJSON::JsonTraversalFunction(
 	}
 }
 
-template<typename Iterator, typename vectorJSON, typename JsonType>
+template<typename Iterator, typename vectorJSON>
 void RequestsJSON::selectingWordsMinimumLength( const Iterator &iter, Configuration& configuration,
-	vectorJSON& strConfig, size_t requestNumber, JsonType& reqconfig)
+	vectorJSON& strConfig, size_t requestNumber)
 {
 	string requerie = iter;
 	if (requerie.size() > configuration.minWordLength)
@@ -47,7 +47,6 @@ void RequestsJSON::selectingWordsMinimumLength( const Iterator &iter, Configurat
 	}
 	else
 		requerie = "";
-	reqconfig.clear();
 }
 
 template<typename vectorJSON>
@@ -55,13 +54,12 @@ void RequestsJSON::mapTraversalFunction(
 	map<size_t, vector<string>>& getRequests,
 	 vectorJSON& strConfig)
 {
-	nlohmann::json reqconfig;
 	size_t nReq=1;
 	for (auto it = getRequests.begin(); it != getRequests.end(); it ++ )
 	{
 		for (const auto& iter : it->second)
 		{
-			selectingWordsMinimumLength(iter, configuration, strConfig, nReq, reqconfig);
+			selectingWordsMinimumLength(iter, configuration, strConfig, nReq);
 		}
 		nReq++;
 	}
