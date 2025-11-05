@@ -4,7 +4,8 @@ on:
   pull_request_target:
     types: [opened, synchronize]
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   label:
@@ -15,6 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: srvaroa/labeler@master
+      - name: Harden Runner
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - uses: srvaroa/labeler@b4493338d7929ddc4ffc95fadf6f28c73bae2e90 # master
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

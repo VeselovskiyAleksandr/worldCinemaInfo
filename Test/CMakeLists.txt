@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.8)
 project (Test)
 include(FetchContent)
-
+set(gtest_force_shared_crt ON)  #заставл€ет GoogleTest динамически св€зывать среды выполнени€ и соответствовать проекту, в который он включЄн. 
 FetchContent_Declare(
 googletest
 GIT_REPOSITORY https://github.com/google/googletest.git
@@ -12,13 +12,13 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_executable (Test
-                    "../worldCinemaInfo/include/serverTest.cpp"
-                    "../worldCinemaInfo/src/ConverterJSON.cpp"
-                    "../worldCinemaInfo/src/EngineStart.cpp"
-                    "../worldCinemaInfo/src/RequestsJSON.cpp"
-                    "../worldCinemaInfo/src/AnswersJSON.cpp"
-               )
-target_include_directories(Test PRIVATE "../worldCinemaInfo/include/")
+                    "../worldCinemaInfoSearchEngine/include/serverTest.cpp"
+                    "../worldCinemaInfoSearchEngine/src/ConverterJSON.cpp"
+                    "../worldCinemaInfoSearchEngine/src/EngineStart.cpp"
+                    "../worldCinemaInfoSearchEngine/src/RequestsJSON.cpp"
+                    "../worldCinemaInfoSearchEngine/src/AnswersJSON.cpp"
+                 )
+target_include_directories(Test PRIVATE "../worldCinemaInfoSearchEngine/include/")
 target_link_libraries(Test PRIVATE gtest_main nlohmann_json::nlohmann_json)
 include(GoogleTest)
 gtest_discover_tests(Test)

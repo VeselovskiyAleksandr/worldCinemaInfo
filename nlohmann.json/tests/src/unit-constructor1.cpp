@@ -1,9 +1,9 @@
 //     __ _____ _____ _____
 //  __|  |   __|     |   | |  JSON for Modern C++ (supporting code)
-// |  |  |__   |  |  | | | |  version 3.11.3
+// |  |  |__   |  |  | | | |  version 3.12.0
 // |_____|_____|_____|_|___|  https://github.com/nlohmann/json
 //
-// SPDX-FileCopyrightText: 2013-2023 Niels Lohmann <https://nlohmann.me>
+// SPDX-FileCopyrightText: 2013-2025 Niels Lohmann <https://nlohmann.me>
 // SPDX-License-Identifier: MIT
 
 #include "doctest_compatibility.h"
@@ -412,7 +412,7 @@ TEST_CASE("constructors")
 
         SECTION("char[]")
         {
-            char const s[] {"Hello world"}; // NOLINT(cppcoreguidelines-avoid-c-arrays,hicpp-avoid-c-arrays,modernize-avoid-c-arrays)
+            const char s[] {"Hello world"}; // NOLINT(misc-const-correctness,cppcoreguidelines-avoid-c-arrays,hicpp-avoid-c-arrays,modernize-avoid-c-arrays)
             json const j(s);
             CHECK(j.type() == json::value_t::string);
             CHECK(j == j_reference);
@@ -779,7 +779,7 @@ TEST_CASE("constructors")
 
         SECTION("integer literal with u suffix")
         {
-            json j(42u);
+            const json j(42u);
             CHECK(j.type() == json::value_t::number_unsigned);
             CHECK(j == j_unsigned_reference);
         }
@@ -793,7 +793,7 @@ TEST_CASE("constructors")
 
         SECTION("integer literal with ul suffix")
         {
-            json j(42ul);
+            const json j(42ul);
             CHECK(j.type() == json::value_t::number_unsigned);
             CHECK(j == j_unsigned_reference);
         }
@@ -807,7 +807,7 @@ TEST_CASE("constructors")
 
         SECTION("integer literal with ull suffix")
         {
-            json j(42ull);
+            const json j(42ull);
             CHECK(j.type() == json::value_t::number_unsigned);
             CHECK(j == j_unsigned_reference);
         }
@@ -1362,7 +1362,7 @@ TEST_CASE("constructors")
             {
                 {
                     json jarray = {1, 2, 3, 4, 5};
-                    json j_new(jarray.begin(), jarray.begin());
+                    const json j_new(jarray.begin(), jarray.begin());
                     CHECK(j_new == json::array());
                 }
                 {
