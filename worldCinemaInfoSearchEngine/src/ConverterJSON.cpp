@@ -129,7 +129,7 @@ void ConverterJSON::readFromFilesFunction(vector<string> wordsFromFilesVector[DO
 }
 
 template<typename Iterator>
-void ConverterJSON::fillEntryFunction(size_t countPosition, int& i, vector<Entry> getCountWords[DOCUMENT_NUMBER], Iterator& it, size_t& count, Entry& entry)
+void ConverterJSON::fillEntryFunction(size_t& countPosition, int& i, vector<Entry> getCountWords[DOCUMENT_NUMBER], Iterator& it, size_t& count, Entry& entry)
 {
 	entry.docId = it.docId;
 	entry.word = it.word;

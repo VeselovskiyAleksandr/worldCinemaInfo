@@ -14,7 +14,7 @@ struct Configuration
 {
 	string name; //cодержит название движка
 	string version; //версия движка
-	map<int, string> movieTitles;
+	map<int, string> movieTitles; //содержит пути к файлам с документами
 	static const int maxRequest = 1000; //максимальное количество зпросов
 	static const int maxStrRequestLength = 80; //наибольшее количество знаков в запросе
 	static const int numberProcessorCores = 4; //количество ядер процессора

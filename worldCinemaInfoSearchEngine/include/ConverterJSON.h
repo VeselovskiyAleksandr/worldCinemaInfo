@@ -35,17 +35,21 @@ public: ConverterJSON() = default;
 	  void readingFromDatabase(queue<string>& q, mutex& mtx, condition_variable& cond, atomic<bool>& fileComplete);
 	  void ProcessData(const string& line);
 
-	  void openFilesFunction(Configuration& configuration, string moviePath[DOCUMENT_NUMBER], ifstream file[DOCUMENT_NUMBER]);
+	  //функция открытия файлов с документами
+     void openFilesFunction(Configuration& configuration, string moviePath[DOCUMENT_NUMBER], ifstream file[DOCUMENT_NUMBER]);
 
 	  //функция чтения из файлов
 	  void readFromFilesFunction(vector<string> wordsFromFilesVector[DOCUMENT_NUMBER], string strWord[DOCUMENT_NUMBER], ifstream file[DOCUMENT_NUMBER], queue<string> lines);
 
+	  //функция заполнения структуры Entry
 	  template<typename Iterator>
-	  void fillEntryFunction(size_t countPosition, int& i, vector<Entry> getCountWords[DOCUMENT_NUMBER], Iterator& it, size_t& count, Entry& entry);
+	  void fillEntryFunction(size_t& countPosition, int& i, vector<Entry> getCountWords[DOCUMENT_NUMBER], Iterator& it, size_t& count, Entry& entry);
 
-	  template<typename Iterator>
+	  //функция подсчёта повторяемости слова (внутренни цикл)
+	  template <typename Iterator>
 	  void matchSearchInnerLoopFunction(int& i, vector<Entry> getCountWords[DOCUMENT_NUMBER], Iterator& it, size_t& count);
 
+	  //функция подсчёта повторяемости слова (внешний цикл)
 	  void matchSearchOuterLoopFunction(vector<Entry> getCountWords[DOCUMENT_NUMBER], vector <Entry>& vectEntry, multimap<string, vector< Entry>>& countWordsMap);
 
 	  //функция получения данных о словах

@@ -9,16 +9,14 @@ void AnswersJSON::searchIdenticalWordsFunction(multimap<string, vector< Entry>>&
 {
 	size_t wordRepetition = 0;
 	vector <size_t> docWord;
-	for (auto it = countWordsMap.begin(); it != countWordsMap.end(); ++it)
+	auto itr = countWordsMap.equal_range(requestWord[i]);
+	for (auto it = itr.first; it != itr.second; ++it)
 	{
-		if (requestWord[i] == it->first)
+		for (auto m : it->second)
 		{
-			for (auto m : it->second)
-			{
-				searchResult.insert({ m.freqWordsCount, m.docId });
-				size_t wordRepetition = m.wordFrequency;
-				docWord.push_back(m.docId);
-			}
+			searchResult.insert({ m.freqWordsCount, m.docId });
+			size_t wordRepetition = m.wordFrequency;
+			docWord.push_back(m.docId);
 		}
 	}
 	getDataRequest.insert({ wordRepetition, docWord});
@@ -44,14 +42,14 @@ void AnswersJSON::vectorTraversalFunction(vector <size_t>& docIDVector_1, vector
 {
 	for (int im = 0; im != docIDVector_1.size(); ++im)
 	{
-		for (auto it : iter->second)
-		{
+        for (auto it : iter->second)
+	    {
 			if (docIDVector_1[im] == it)
-			{
-				ifDoc = true;
-				docIDVector_2.push_back(docIDVector_1[im]);
-			}
-		}
+		    {
+			ifDoc = true;
+			docIDVector_2.push_back(docIDVector_1[im]);
+		    }
+	    }
 		if (ifDoc == false)
 		{
 			nlohmann::json docConfig;
