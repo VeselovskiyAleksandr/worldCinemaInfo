@@ -1,33 +1,7 @@
 #include "RequestsJSON.h"
 
-template <typename JsonIterator>
-void RequestsJSON::conditionCheckingFunction(map <size_t, vector<string>> &getRequests, vector<string>& vecRequest, size_t& nReq, const JsonIterator& element)
-{	
-		string strValue = element.value().is_string() ? element.value().get<string>() : to_string(element.value());
-		if (!strValue.empty() && strValue != "Req")
-		{
-			strValue = strValue.substr(4, strValue.size() - 6);
-			vecRequest.push_back(strValue);
-			getRequests.emplace(nReq, vecRequest);
-			nReq++;
-		}
-		vecRequest.clear();
-}
-
-template<typename JsonType>
-void RequestsJSON::JsonTraversalFunction(map<size_t, vector<string>>& getRequests, vector<string>& vecRequest, size_t& nReq, const JsonType& data)
-{
-	for (const auto& item : data.items())
-	{
-		for (const auto& itr : item.value().items())
-		{
-					conditionCheckingFunction(getRequests, vecRequest, nReq, itr);
-		}
-	}
-}
-
 template<typename Iterator, typename vectorJSON>
-void RequestsJSON::selectingWordsMinimumLength(const Iterator &iter, Configuration& configuration, vectorJSON& strConfig, size_t requestNumber)
+void RequestsJSON::selectingWordsMinimumLength(const Iterator &iter, Configuration& configuration, vectorJSON& strConfig, size_t& requestNumber)
 {
 	string requerie = iter;
 	if (requerie.size() > configuration.minWordLength)
@@ -53,23 +27,6 @@ void RequestsJSON::mapTraversalFunction(map<size_t, vector<string>>& getRequests
 	}
 }
 
-void RequestsJSON::getRequestsFunction(map<size_t, vector <string>>& getRequests)
-{
-	ifstream reqfile("requests.json");
-	if (!reqfile)
-		cout << "\n " << "Requests file is not found.";
-	if (reqfile.peek() != EOF)
-	{
-		nlohmann::json reqconfig;
-		reqfile.seekg(0);
-		reqfile >> reqconfig;
-		reqfile.close();
-		size_t nReq = 0;
-		vector<string> vecRequest;
-		JsonTraversalFunction(getRequests, vecRequest, nReq, reqconfig);
-	}
-}
-
 void RequestsJSON::requerInputFunction(map<size_t, vector<string>>& getRequests)
 {
 	if (getRequests.size() < configuration.maxRequest)
@@ -89,7 +46,6 @@ void RequestsJSON::requerInputFunction(map<size_t, vector<string>>& getRequests)
 		vectorRequest.clear();
 	}
 }
-
 void RequestsJSON::writeMapToFileFunction(map<size_t, vector<string>>& getRequests)
 {
 	nlohmann::json requerConfig;

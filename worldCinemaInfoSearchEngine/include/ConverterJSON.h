@@ -1,58 +1,64 @@
 #pragma once
-#include "EngineStart.h"
-#include "Configuration.h"
-#include "Entry.h"
-#include <thread>
-#include <mutex>
-#include <condition_variable>
-#include <queue>
-#include <chrono> 
+#include "AnswersJSON.h"
+#include "nlohmann/json.hpp"
+
+using namespace std;
+using json = nlohmann::json;
 
 class ConverterJSON
 {
 public: ConverterJSON() = default;
-	  Configuration configuration;
-	  vector<string> wordsFromFilesVector[DOCUMENT_NUMBER];
-	  vector<Entry> getCountWords[DOCUMENT_NUMBER];
-	  multimap<string, vector< Entry>> countWordsMap;
-	  mutex film_mutex;
-	  condition_variable cond;
+	  InvertedIndex invertedIndex;
+	  AnswersJSON answersJSON;
 
-	  //функция обхода вектора
-	  void vectorTraversalFunction(vector<string>& sentence, vector<string>& setWords, string word);
+	//функция записи в JSON нулевого результата
+	template<typename Iterator>
+	void nullResultRecordingFunction(vector <size_t>& docIDVector_1, vector <size_t>& docIDVector_2, nlohmann::json& requestNumberConfig,
+		                             nlohmann::json requestConfig[MAX_RESPONS], Iterator& iterator, int& countReqResponses, nlohmann::json& docConfig);
 
-	  //функция проверки условий для записи слова в поиск
-	  template<typename Iterator>
-	  void wordEntryConditionFunction(string& word, vector<string>& sentence, vector<string>& setWords, Iterator& ir, Iterator& n);
+	//функция нахождения общих документов при переходе от слов с меньшей встречаемостью к словам с большей встречаемостью.
+template<typename Iterat, typename Iter>
+void vectorTraversalFunction(vector <size_t>& docIDVector1, vector <size_t>& docIDVector2, bool ifDoc, nlohmann::json& requestNumberConfig,
+	                         nlohmann::json requestConfig[MAX_RESPONS], int& countReqResponses, Iterat& iterator, Iter& iter);
 
-	  //функция выделения слов
-	  void wordSplitFunction(vector<string>& sentence, vector<string>& setWords);
+//функция записи в вектор документов для наименее повторяющегося слова
+template<typename Iterator>
+void contentLeastFrequentWordFunction(Iterator& iter, multimap < size_t, vector <size_t>>& getDataRequest, vector <size_t>& docIDVector);
 
-	  //функция заполнения вектора Entry. Содержит структуру Entry для каждого слова. 
-	  void vectorEntryFillFunction(vector<string> vectWord[DOCUMENT_NUMBER], int n, vector<Entry> getCountWords[DOCUMENT_NUMBER]);
+//функция расчёта релевантности и записи данных в JSON
+void findingRequestDataFunction(multimap <size_t, size_t >& searchRequestResult, double& relativeReqRelevance, size_t& maxRequestAbsoluteRelevance,
+                            	nlohmann::json requestConfig[MAX_RESPONS], int& countReqResponses, bool& ifDoc, nlohmann::json requestNumberConfig);
 
-	  //функции потоков
-	  void readingFromDatabase(queue<string>& q, mutex& mtx, condition_variable& cond, atomic<bool>& fileComplete);
-	  void ProcessData(const string& line);
+//функция очистки вектора JSON
+void cleaningJSONArrayFunction(nlohmann::json requestConfig[MAX_RESPONS]);
 
-	  //функция открытия файлов с документами
-     void openFilesFunction(Configuration& configuration, string moviePath[DOCUMENT_NUMBER], ifstream file[DOCUMENT_NUMBER]);
+//функция нахождения документов для всех слов из запроса
+template<typename Iterator>
+void findingDocumentsRequestFunction(multimap < size_t, vector <size_t>>& getDataRequest, vector <size_t>& docIDVector, vector <size_t>& dIDVector, nlohmann::json requestConfig[MAX_RESPONS],
+	                                 nlohmann::json& requestNumberConfig, bool& ifDoc, int& countReqResponses, Iterator& iterator);
 
-	  //функция чтения из файлов
-	  void readFromFilesFunction(vector<string> wordsFromFilesVector[DOCUMENT_NUMBER], string strWord[DOCUMENT_NUMBER], ifstream file[DOCUMENT_NUMBER], queue<string> lines);
+//функция получения результатов на запрос
+template<typename Iterator>
+void searchRequestRelevanceFunction(multimap < size_t, vector <size_t>>& getDataRequest, vector< nlohmann::json>& resultVectorConfig, Iterator& iterator,
+	                                multimap < string, multimap <size_t, size_t>>& dataWord, size_t& requestAbsoluteRelevance, size_t& maxRequestAbsoluteRelevance,
+	                                multimap <size_t, size_t >& searchRequestResult);
 
-	  //функция заполнения структуры Entry
-	  template<typename Iterator>
-	  void fillEntryFunction(size_t& countPosition, int& i, vector<Entry> getCountWords[DOCUMENT_NUMBER], Iterator& it, size_t& count, Entry& entry);
+//функция обработки слов из запросов
+void queryProcessingFunction(vector<string>& requestWord, multimap<size_t, size_t>& searchResult, multimap<string, vector< Entry>>& countWordsMap,
+	                         nlohmann::json& docConfig, nlohmann::json dataConfig[MAX_RESPONS], size_t& absoluteRelevance, size_t& maxAbsoluteRelevance,
+	                         size_t& maxAbsoluteRelevanceDoc, multimap < size_t, vector <size_t>>& getDataRequest, multimap < string, multimap <size_t, size_t>>& dataWord);
 
-	  //функция подсчёта повторяемости слова (внутренни цикл)
-	  template <typename Iterator>
-	  void matchSearchInnerLoopFunction(int& i, vector<Entry> getCountWords[DOCUMENT_NUMBER], Iterator& it, size_t& count);
+//функция заполнения вектора строк словами запросов
+template<typename JsonIterator>
+void writingQueriesVectorFunction(vector<string>& reqtWord, JsonIterator& iterator);
 
-	  //функция подсчёта повторяемости слова (внешний цикл)
-	  void matchSearchOuterLoopFunction(vector<Entry> getCountWords[DOCUMENT_NUMBER], vector <Entry>& vectEntry, multimap<string, vector< Entry>>& countWordsMap);
+//функция обработки запросов
+template<typename Iterator>
+void requestProcessingFunction(Iterator& iterator, multimap<string, vector< Entry>>& countWordsMap, vector<string>& requestWord, vector<string>& reqtWord, int& reqNumber,
+	                           nlohmann::json dataConfig[MAX_RESPONS], nlohmann::json docConfig, nlohmann::json requestNumberConfig, nlohmann::json requestResultConfig,
+	                           vector< nlohmann::json>& resultVectorConfig);
 
-	  //функция получения данных о словах
-	  void getWordDataFunction(multimap<string, vector< Entry>>& countWordsMap, Configuration& configuration, vector<string> wordsFromFilesVector[DOCUMENT_NUMBER],
-		                       vector<Entry> getCountWords[DOCUMENT_NUMBER]);
+//функция поиска ответов. Здесь ведётся поиск в контейнере.
+void searchAnswerFunction( multimap<string, vector< Entry>>& countWordsMap, map <size_t, vector< string>>& getRequest);
 };
+

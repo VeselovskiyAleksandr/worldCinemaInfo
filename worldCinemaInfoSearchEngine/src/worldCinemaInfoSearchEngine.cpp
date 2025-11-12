@@ -1,10 +1,4 @@
-﻿// worldCinemaInfoSearchEngine.cpp: определяет точку входа для приложения.
-//
-#include "ConverterJSON.h"
-#include "EngineStart.h"
-#include "Configuration.h"
-#include "RequestsJSON.h"
-#include "AnswersJSON.h"
+﻿#include "SearchServer.h"
 
 int main()
 {
@@ -13,6 +7,8 @@ int main()
 	Configuration configuration;
 	RequestsJSON requestsJSON;
 	AnswersJSON answersJSON;
+	SearchServer searchServer;
+	InvertedIndex invertedIndex;
 	try
 	{
 		engineStart.start(configuration);
@@ -24,7 +20,7 @@ int main()
 	}
 	if (engineStart.isJSONValid("requests.json"))
 	{
-		cout << "\nrequests.json is correct!\n";
+		cout << "\nrequests.json is correct!";
 	}
 	else
 	{
@@ -32,7 +28,7 @@ int main()
 	}
 	if (engineStart.isJSONValid("answers.json"))
 	{
-		cout << "\nanswers.json is correct!";
+		cout << "\nanswers.json is correct!\n";
 	}
 	else
 	{
@@ -40,14 +36,13 @@ int main()
 	}
 	engineStart.openFile("requests.json");
 	engineStart.openFile("answers.json");
-	requestsJSON.getRequestsFunction(requestsJSON.getRequests);
-	//requestsJSON.requerInputFunction(requestsJSON.getRequests);
+	searchServer.getRequestsFunction(requestsJSON.getRequests);
+    //requestsJSON.requerInputFunction(requestsJSON.getRequests);
 	requestsJSON.writeMapToFileFunction(requestsJSON.getRequests);
 	auto startTime = chrono::high_resolution_clock::now();
-//	converterJSON.readFromFilesFunction(converterJSON.wordsFromFilesVector, configuration);
-	converterJSON.getWordDataFunction(converterJSON.countWordsMap, configuration, converterJSON.wordsFromFilesVector, converterJSON.getCountWords);
-	answersJSON.searchAnswerFunction(converterJSON.countWordsMap, requestsJSON.getRequests);
-	answersJSON.getAnswerFunction();
+	searchServer.getWordDataFunction(invertedIndex.countWordsMap, configuration, invertedIndex.wordsFromFilesVector, invertedIndex.getCountWords);
+	converterJSON.searchAnswerFunction(invertedIndex.countWordsMap, requestsJSON.getRequests);
+	searchServer.getAnswerFunction();
 	auto endTime = chrono::high_resolution_clock::now();
 	chrono::duration<double> serial_duration = endTime - startTime;
 	cout << "\nQuery execution time: " << serial_duration.count() << " seconds";

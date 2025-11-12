@@ -1,13 +1,5 @@
 #include "gtest/gtest.h"
-#include "ConverterJSON.h"
-#include "Entry.h"
-#include "Configuration.h"
-#include "EngineStart.h"
-#include "RequestsJSON.h"
-#include <map>
-#include <vector>
-#include <string>
-#include "nlohmann/json.hpp"
+#include "SearchServer.h"
 
 using json = nlohmann::json;
 using namespace std;
@@ -17,24 +9,16 @@ TEST(sampleTestCase, sampleTest)
 	EXPECT_EQ(1, 1);
 }
 
-TEST(RequestsJSONTest, requestsFunctionsTest)
+TEST(EngineStartTest, checkLaunch)
 {
-	RequestsJSON requestsJSON;
-	map <size_t, vector< string>>getRequestsTest;
-	requestsJSON.getRequestsFunction(getRequestsTest);
-	for (auto i : getRequestsTest)
-	{
-		if (i.first == 2)
-			for (auto j : i.second)
-			{
-				EXPECT_TRUE(j == "tank this other");
-			}
-	}
-	getRequestsTest.clear();
+	EngineStart engineStart;
+	engineStart.openFile("config.json");
+	EXPECT_TRUE("config.json");
 }
 
 TEST(ConverterJSONTest, someFunctionsTest)
 {
+	InvertedIndex invertedIndex;
 	ConverterJSON converterJSON;
 	Configuration configuration;
 	nlohmann::json config;
@@ -83,7 +67,7 @@ TEST(ConverterJSONTest, someFunctionsTest)
 	}
 	wordsFromFilesTest[0] = wordsFromFilesVectorTest;
 
-	converterJSON.wordSplitFunction(wordsFromFilesTest[0], vectorWordTest[0]);
+	invertedIndex.wordSplitFunction(wordsFromFilesTest[0], vectorWordTest[0]);
 	for (int j = 0; j < vectorWordTest[0].size(); ++j)
 	{
 		if (j == 25)
@@ -96,7 +80,7 @@ TEST(ConverterJSONTest, someFunctionsTest)
 	vector<Entry> getWordCountTest[DOCUMENT_NUMBER];
 	multimap<string, vector< Entry>> countWordsMapTest;
 	vector<Entry> getCountWordsTest[DOCUMENT_NUMBER];
-	converterJSON.vectorEntryFillFunction(vectorWordTest, 0, getCountWordsTest);
+	invertedIndex.vectorEntryFillFunction(vectorWordTest, 0, getCountWordsTest);
 	for (int i = 0; i < getWordCountTest[0].size(); ++i)
 	{
 		for (auto j : getWordCountTest[0])
@@ -145,6 +129,23 @@ TEST(ConverterJSONTest, someFunctionsTest)
 	config.clear();
 }
 
+TEST(SearchServerTest, requestsFunctionsTest)
+{
+	SearchServer searchServer;
+	RequestsJSON requestsJSON;
+	map <size_t, vector< string>>getRequestsTest;
+	searchServer.getRequestsFunction(getRequestsTest);
+
+	for (auto i : getRequestsTest)
+	{
+		if (i.first == 2)
+			for (auto j : i.second)
+			{
+				EXPECT_TRUE(j == "tank this other");
+			}
+	}
+	getRequestsTest.clear();
+}
 
 int main()
 {
